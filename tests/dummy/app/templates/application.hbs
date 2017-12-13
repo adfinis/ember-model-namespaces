@@ -1,3 +1,12 @@
-<h2 id="title">Welcome to Ember</h2>
-
-{{outlet}}
+<h1>X Posts</h1>
+<ul>
+  {{#each model.x as |row|}}
+    <li>{{row.title}}<small>by {{row.user.name}}</small></li>
+  {{/each}}
+</ul>
+<h1>Y Posts</h1>
+<ul>
+  {{#each model.y as |row|}}
+    <li>{{row.title}}<small>by {{row.user.name}}</small></li>
+  {{/each}}
+</ul>
