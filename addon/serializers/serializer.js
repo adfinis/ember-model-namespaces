@@ -6,12 +6,11 @@ import { pluralize, singularize } from 'ember-inflector';
 
 const { testing } = Ember;
 
-const payloadTypeFromModelName = (name, namespace) => {
-  return pluralize(
-    dasherize(name)
-      .replace(namespace, '')
-      .replace(/(^-|-$)/g, '')
-  );
+const payloadTypeFromModelName = (name, namespace, pluralizedPayloadType) => {
+  let dasherized = dasherize(name)
+    .replace(namespace, '')
+    .replace(/(^-|-$)/g, '')
+  return pluralizedPayloadType ? pluralize(dasherized) : singularize(dasherized);
 };
 
 const modelNameFromPayloadType = (type, namespace) => {
@@ -20,6 +19,7 @@ const modelNameFromPayloadType = (type, namespace) => {
 
 export default JSONAPISerializer.extend({
   namespace: null,
+  pluralizedPayloadType: false,
 
   init() {
     this._super(...arguments);
@@ -32,10 +32,10 @@ export default JSONAPISerializer.extend({
   },
 
   payloadTypeFromModelName(name) {
-    return payloadTypeFromModelName(name, this.get('namespace'));
+    return payloadTypeFromModelName(name, this.get('namespace'), this.get('pluralizedPayloadType'));
   },
   payloadKeyFromModelName(name) {
-    return payloadTypeFromModelName(name, this.get('namespace'));
+    return payloadTypeFromModelName(name, this.get('namespace'), this.get('pluralizedPayloadType'));
   },
   modelNameFromPayloadType(type) {
     return modelNameFromPayloadType(type, this.get('namespace'));
