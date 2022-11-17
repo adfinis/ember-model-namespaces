@@ -1,4 +1,6 @@
-# ember-model-namespaces
+# ember-model-namespaces 
+
+**This addon is no longer maintained. Do not use it in your project anymore.**
 
 This README outlines the details of collaborating on this Ember addon.
 
